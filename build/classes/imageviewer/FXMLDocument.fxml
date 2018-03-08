@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -33,7 +34,7 @@
                                  <children>
                                     <TabPane layoutX="-1.0" prefHeight="168.0" prefWidth="369.0" tabClosingPolicy="UNAVAILABLE">
                                       <tabs>
-                                        <Tab text="Fichier">
+                                        <Tab fx:id="fileTab" text="Fichier">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="108.0" prefWidth="369.0">
                                                    <children>
@@ -47,8 +48,8 @@
                                           <content>
                                             <AnchorPane disable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label layoutX="31.0" layoutY="18.0" prefHeight="16.0" prefWidth="145.0" text="Renommer l'image" />
-                                                      <Label layoutX="223.0" layoutY="18.0" text="Mots-clés" />
+                                                      <Label fx:id="renameLabel" layoutX="31.0" layoutY="18.0" prefHeight="16.0" prefWidth="145.0" text="Renommer l'image" />
+                                                      <Label fx:id="keywordsLabel" layoutX="223.0" layoutY="18.0" text="Mots-clés" />
                                                       <TextArea fx:id="keyWords" editable="false" layoutX="204.0" layoutY="35.0" prefHeight="61.0" prefWidth="137.0" />
                                                       <TextField fx:id="pictureName" disable="true" editable="false" layoutX="31.0" layoutY="43.0" prefHeight="16.0" prefWidth="78.0" />
                                                       <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="307.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
@@ -129,7 +130,7 @@
                            <children>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="317.0" style="-fx-border-color: black;">
                                  <children>
-                                    <Label layoutX="57.0" layoutY="54.0" text="Rechercher par mot-clé" />
+                                    <Label fx:id="labelRecherche" layoutX="57.0" layoutY="54.0" text="Rechercher par mot-clé" />
                                     <TextField fx:id="searchArea" layoutX="49.0" layoutY="84.0" prefHeight="32.0" prefWidth="171.0" />
                                     <ImageView fx:id="search" fitHeight="25.0" fitWidth="30.0" layoutX="186.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -159,14 +160,20 @@
       </Pane>
       <MenuBar layoutY="4.0" prefHeight="29.0" prefWidth="684.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Langue">
+          <Menu fx:id="langMenu" mnemonicParsing="false" text="Langue">
             <items>
-              <MenuItem mnemonicParsing="false" text="Anglais" />
-                  <MenuItem mnemonicParsing="false" text="العربية" />
-                  <MenuItem mnemonicParsing="false" text="Français" />
+              <MenuItem fx:id="englishItem" mnemonicParsing="false" onAction="#setLanguageToEnglish" text="English" />
+                  <MenuItem fx:id="arabicItem" mnemonicParsing="false" onAction="#setLanguageToArabic" text="العربية" />
+                  <MenuItem fx:id="frenchItem" mnemonicParsing="false" onAction="#setLanguageToFrench" text="Français" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <SplitMenuButton layoutX="32.0" layoutY="-54.0" mnemonicParsing="false" text="SplitMenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
    </children>
 </AnchorPane>

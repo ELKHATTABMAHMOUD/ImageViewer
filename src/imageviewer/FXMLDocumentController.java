@@ -7,25 +7,21 @@ package imageviewer;
 
 import java.io.File ;
 import java.net.URL;
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,7 +34,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
@@ -106,16 +101,30 @@ public class FXMLDocumentController implements Initializable {
     private TextField pictureName;
     
     @FXML
-    private TextArea keyWords;
-    
-    @FXML
-    private Tab editTab;
-    
+    private TextArea keyWords;    
     private Map<String,List<String>> keyWordsMap = new HashMap();
     
     @FXML
     private TextField searchArea ;
+    @FXML
+    private Label labelRecherche ;
+    @FXML
+    private Label renameLabel ;
+    @FXML
+    private Label keywordsLabel ;
+    @FXML
+    private Tab fileTab ;
+    @FXML
+    private Tab editTab;
     
+    @FXML
+    private Menu langMenu;
+    @FXML
+    private MenuItem englishItem;
+    @FXML
+    private MenuItem arabicItem;
+    @FXML
+    private MenuItem frenchItem;
     /*
      * fonction pour intercepter l'action de parcour d'un dossier 
      */
@@ -156,7 +165,6 @@ public class FXMLDocumentController implements Initializable {
                     images.getItems().add(new Picture(picName,".jpeg",selectedDirectory.getAbsolutePath()));
                 }
             }
-            
             originalImageList.getItems().addAll(images.getItems()) ; 
         }
     }
@@ -204,7 +212,6 @@ public class FXMLDocumentController implements Initializable {
         openWindow();
         rechercherParMotCle();
     } 
-    
     
     /**
      * Suite au clic d'une image dans la liste du répertoire, les vues sont mises à jour
@@ -320,7 +327,11 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-    
+    /* --------------------- Réaliser par EL KHATTAB Mahmoud ---------------------------
+     * cette fonction permet de rechercher les images dont le ou les mots clés commencer 
+     * par la lettre ou le mot saisi dans le champs de texte dédié à la recherche 
+     * ---------------------------------------------------------------------------------
+     */
     private void rechercherParMotCle(){
         searchArea.setOnKeyReleased(new EventHandler<KeyEvent>(){
             @Override
@@ -357,17 +368,71 @@ public class FXMLDocumentController implements Initializable {
                     }
                 }
             }
-        
-        
         });
     }
     boolean contains(List<String> keyWords, String motCle){
-            
             for(int i = 0 ; i< keyWords.size(); i++ ){
                 if(keyWords.get(i).startsWith(motCle))
                     return true ; 
             }
             return false ; 
     }
-    
+    @FXML
+    private void setLanguageToEnglish(){
+        switchInterfaceLanguage("anglais");
+    }
+    @FXML
+    private void setLanguageToArabic(){
+        
+        switchInterfaceLanguage("arabe");
+    }
+    @FXML
+    private void setLanguageToFrench(){
+        switchInterfaceLanguage("francais");
+    }
+    /**
+     * ---------------- Réalisé par EL KHATTAB Mahmoud --------------------
+     * Cette fonction permet le changement de la langue de l'interface graphique 
+     * selon le choix de l'utilisateur à travers un menu de langues. Un affichage par defaut 
+     * des éléments de l'interface est adopté au lancement de l'application.
+     */
+    private void switchInterfaceLanguage(String language){
+        ResourceBundle rb ; 
+        /* modification du contenu des différents widgets de l'interface */
+        switch(language){
+            case "anglais":{
+                Locale locale = new Locale("en","US");
+                rb = ResourceBundle.getBundle("imageviewer.properties.langue",locale);
+                break;
+            }
+            case "arabe":{
+                Locale locale = new Locale("ar","MA");
+                rb = ResourceBundle.getBundle("imageviewer.properties.langue",locale);
+                System.out.println("wa l3arbia");
+                break;
+            }
+            case "francais":{
+                Locale locale = new Locale("fr","FR");
+                rb = ResourceBundle.getBundle("imageviewer.properties.langue",locale);
+                break;
+            }
+            default:{
+                rb = ResourceBundle.getBundle("imageviewer.properties.langue");
+                break ;
+            }
+        }
+        langMenu.setText(rb.getString("langue"));
+        fileTab.setText(rb.getString("fichier"));
+        editTab.setText(rb.getString("edition"));
+        labelRecherche.setText(rb.getString("recherche"));
+        browseButton.setText(rb.getString("parcourir"));
+        browseButton.setText(rb.getString("nom"));
+        browseButton.setText(rb.getString("extension"));
+        browseButton.setText(rb.getString("chemin"));
+        renameLabel.setText(rb.getString("renommer"));
+        keywordsLabel.setText(rb.getString("motscles"));
+        frenchItem.setText(rb.getString("francais"));
+        arabicItem.setText(rb.getString("arabe"));
+        englishItem.setText(rb.getString("anglais"));
+    }
 }
