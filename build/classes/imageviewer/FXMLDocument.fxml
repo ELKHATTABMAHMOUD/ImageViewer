@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="imageviewer.FXMLDocumentController">
+   <children>
+      <Pane layoutY="33.0" prefHeight="427.0" prefWidth="684.0">
+         <children>
+            <HBox prefHeight="427.0" prefWidth="684.0">
+               <children>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="366.0">
+                     <children>
+                        <VBox prefHeight="426.0" prefWidth="366.0">
+                           <children>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="366.0">
+                                 <children>
+                                    <TabPane layoutX="-1.0" prefHeight="168.0" prefWidth="369.0" tabClosingPolicy="UNAVAILABLE">
+                                      <tabs>
+                                        <Tab text="Fichier">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="108.0" prefWidth="369.0">
+                                                   <children>
+                                                      <TextField fx:id="directoryPath" disable="true" editable="false" layoutX="42.0" layoutY="55.0" />
+                                                      <Button fx:id="browseButton" layoutX="228.0" layoutY="55.0" mnemonicParsing="false" onAction="#browseDirectory" text="Parcourir" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                        <Tab fx:id="editTab" disable="true" text="Édition">
+                                          <content>
+                                            <AnchorPane disable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label layoutX="31.0" layoutY="18.0" prefHeight="16.0" prefWidth="145.0" text="Renommer l'image" />
+                                                      <Label layoutX="223.0" layoutY="18.0" text="Mots-clés" />
+                                                      <TextArea fx:id="keyWords" editable="false" layoutX="204.0" layoutY="35.0" prefHeight="61.0" prefWidth="137.0" />
+                                                      <TextField fx:id="pictureName" disable="true" editable="false" layoutX="31.0" layoutY="43.0" prefHeight="16.0" prefWidth="78.0" />
+                                                      <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="307.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/del_icon.jpeg" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="260.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/edit_keyword_icon.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fx:id="addKeyWord" fitHeight="25.0" fitWidth="29.0" layoutX="209.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/add_icon.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="25.0" fitWidth="29.0" layoutX="118.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/rename_icon.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="373.0" style="-fx-border-color: black;">
+                                 <children>
+                                    <ImageView fx:id="playDiapoButton" fitHeight="25.0" fitWidth="25.0" layoutX="96.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/play_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="cropImageButton" fitHeight="25.0" fitWidth="25.0" layoutX="219.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/crop_button.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="currentImage" fitHeight="179.0" fitWidth="233.0" layoutX="83.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                                    <ImageView fx:id="nextImageButton" fitHeight="25.0" fitWidth="25.0" layoutX="133.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/next_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="prevImageButton" fitHeight="25.0" fitWidth="25.0" layoutX="60.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/prev_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="switchImageButton" fitHeight="25.0" fitWidth="25.0" layoutX="265.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@../images/orientation_button.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="welcomeText" layoutX="23.0" layoutY="76.0" prefHeight="40.0" prefWidth="332.0" text="Bienvenue dans votre visionneuse d'images">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="welcomeText2" layoutX="38.0" layoutY="124.0" prefHeight="25.0" prefWidth="292.0" text="Veuillez sélectionner l'image à afficher">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="317.0">
+                     <children>
+                        <VBox prefHeight="427.0" prefWidth="317.0">
+                           <children>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="317.0" style="-fx-border-color: black;">
+                                 <children>
+                                    <Label layoutX="57.0" layoutY="54.0" text="Rechercher par mot-clé" />
+                                    <TextField fx:id="searchArea" layoutX="49.0" layoutY="84.0" prefHeight="32.0" prefWidth="171.0" />
+                                    <ImageView fx:id="search" fitHeight="25.0" fitWidth="30.0" layoutX="186.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/loupe.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="261.0" prefWidth="317.0">
+                                 <children>
+                                    <TableView fx:id="images" prefHeight="259.0" prefWidth="315.0">
+                                      <columns>
+                                        <TableColumn fx:id="name" prefWidth="101.0" text="Nom" />
+                                        <TableColumn fx:id="extension" text="Extension" />
+                                          <TableColumn fx:id="path" prefWidth="133.0" text="Chemin" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <MenuBar layoutY="4.0" prefHeight="29.0" prefWidth="684.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Langue">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Anglais" />
+                  <MenuItem mnemonicParsing="false" text="العربية" />
+                  <MenuItem mnemonicParsing="false" text="Français" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
