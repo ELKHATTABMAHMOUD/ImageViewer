@@ -125,8 +125,12 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem arabicItem;
     @FXML
     private MenuItem frenchItem;
-    /*
+    
+    
+    /* gg
+     * ------------------ Réalisé par EL KHATTAB Mahmoud -------------------------
      * fonction pour intercepter l'action de parcour d'un dossier 
+     * ---------------------------------------------------------------------------
      */
     @FXML
     private void browseDirectory(ActionEvent event) throws Exception {
@@ -207,22 +211,23 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        updateAAlKeyWorList(keyWordsMap);
+        findImagesKeyWords(); 
         initializeTable();
         displayPicture();
         openWindow();
         rechercherParMotCle();
     } 
     
-    /**
+    /** ---------------------- Réalisé par EL KHATTAB Mahmoud -----------------------------
      * Suite au clic d'une image dans la liste du répertoire, les vues sont mises à jour
+     * ------------------------------------------------------------------------------------
      */
     private void displayPicture() {
         images.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                
                 /*  MAJ de la vue de visualisation de l'image */
-                
                 prevImageButton.setVisible(true);
                 playDiapoButton.setVisible(true);
                 nextImageButton.setVisible(true);
@@ -232,7 +237,6 @@ public class FXMLDocumentController implements Initializable {
                 welcomeText2.setVisible(false);
                 currentImage.setVisible(true);
                 editTab.setDisable(false);
-                
                 
                 String path = images.getSelectionModel().getSelectedItem().getPath();
                 String name = images.getSelectionModel().getSelectedItem().getName();
@@ -267,8 +271,9 @@ public class FXMLDocumentController implements Initializable {
         });
     }
     
-    /**
+    /** ---------------------- Réalisé par HARKIOLAKIS Laurent -------------------
      * Ouverture d'une fenêtre pour la saisie de mot-clés
+     * ---------------------------------------------------------------------------
      */
     private void openWindow() {
         addKeyWord.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -279,7 +284,10 @@ public class FXMLDocumentController implements Initializable {
  
         });
     }
-    
+    /** ---------------------- Réalisé par HARKIOLAKIS Laurent -------------------
+     * Conception de la fenêtre pour la saisie de mot-clés 
+     * ---------------------------------------------------------------------------
+     */
     private void showDialog() {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -311,7 +319,7 @@ public class FXMLDocumentController implements Initializable {
                     else {
                         keyWordsMap.get(pictureName.getText()).add(newKeyWord.getText());
                     }
-                    System.out.println(keyWordsMap.toString());
+                    updateAAlKeyWorList(keyWordsMap);
                     stage.close();
                 }
             }
@@ -391,10 +399,11 @@ public class FXMLDocumentController implements Initializable {
         switchInterfaceLanguage("francais");
     }
     /**
-     * ---------------- Réalisé par EL KHATTAB Mahmoud --------------------
+     * ---------------------- Réalisé par EL KHATTAB Mahmoud ------------------------------
      * Cette fonction permet le changement de la langue de l'interface graphique 
      * selon le choix de l'utilisateur à travers un menu de langues. Un affichage par defaut 
      * des éléments de l'interface est adopté au lancement de l'application.
+     * ------------------------------------------------------------------------------------
      */
     private void switchInterfaceLanguage(String language){
         ResourceBundle rb ; 
@@ -408,7 +417,6 @@ public class FXMLDocumentController implements Initializable {
             case "arabe":{
                 Locale locale = new Locale("ar","MA");
                 rb = ResourceBundle.getBundle("imageviewer.properties.langue",locale);
-                System.out.println("wa l3arbia");
                 break;
             }
             case "francais":{
@@ -434,5 +442,11 @@ public class FXMLDocumentController implements Initializable {
         frenchItem.setText(rb.getString("francais"));
         arabicItem.setText(rb.getString("arabe"));
         englishItem.setText(rb.getString("anglais"));
+    }
+    private void findImagesKeyWords(){ 
+        keyWordsMap = Util.readKeyWordsFromFile();
+    }
+    private void updateAAlKeyWorList(Map<String, List<String>> keyWords){
+        Util.setAllKeyWords(keyWordsMap);
     }
 }
