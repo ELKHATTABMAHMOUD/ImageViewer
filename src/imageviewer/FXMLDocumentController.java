@@ -7,6 +7,8 @@ package imageviewer;
 
 import java.io.File ;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -178,8 +180,9 @@ public class FXMLDocumentController implements Initializable {
         extension.setCellValueFactory(new PropertyValueFactory<>("extension"));
         path.setCellValueFactory(new PropertyValueFactory<>("path"));
         
-        File defaultDirectory = new File("src/images/");
+        File defaultDirectory = new File(System.getProperty("user.dir"));
         images.getItems().removeAll(images.getItems());
+        Path path = FileSystems.getDefault().getPath(".");
         String [] listefichiers;
         
         listefichiers=defaultDirectory.list();
@@ -211,6 +214,7 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         updateAAlKeyWorList(keyWordsMap);
         findImagesKeyWords(); 
         initializeTable();
@@ -220,14 +224,40 @@ public class FXMLDocumentController implements Initializable {
     } 
     
     /** ---------------------- Réalisé par EL KHATTAB Mahmoud -----------------------------
-     * Suite au clic d'une image dans la liste du répertoire, les vues sont mises à jour
+     * Suite au clic d'une image ou d'un click sur les touches up, down 
+     * du clavier dans la liste du répertoire, les vues sont mises à jour
      * ------------------------------------------------------------------------------------
      */
     private void displayPicture() {
         images.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                /*  MAJ de la vue de visualisation de l'image */
+                changeImageDisplayed();
+            }
+            
+        });
+        images.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                changeImageDisplayed();
+            }
+            
+        });
+        images.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                changeImageDisplayed();
+            }
+            
+        });
+    }
+    /** ---------------------- Réalisé par EL KHATTAB Mahmoud -----------------------------
+     * cette méthode est appelé à chaque clic sur la souris ou les touches haut et bas du
+     * clavier et permet l'a&ffichagge de l'image sur laquelle à été effectué l'action
+     * ------------------------------------------------------------------------------------
+     */    
+    private void changeImageDisplayed(){
+        /*  MAJ de la vue de visualisation de l'image */
                 prevImageButton.setVisible(true);
                 playDiapoButton.setVisible(true);
                 nextImageButton.setVisible(true);
@@ -266,11 +296,7 @@ public class FXMLDocumentController implements Initializable {
                         }
                     }
                 }
-            }
-            
-        });
     }
-    
     /** ---------------------- Réalisé par HARKIOLAKIS Laurent -------------------
      * Ouverture d'une fenêtre pour la saisie de mot-clés
      * ---------------------------------------------------------------------------
